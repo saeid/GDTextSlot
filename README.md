@@ -1,15 +1,21 @@
 # GDTextSlot
 Simple component for code input texts with easy setup and inspector support.
 
-![slotview](https://user-images.githubusercontent.com/9967486/36477977-26c59d3e-1714-11e8-90eb-720d5bb3df41.gif)
+![slotview](https://user-images.githubusercontent.com/9967486/36479624-625fbe3c-171a-11e8-8f9e-4c39ee0f4f8d.gif)
+
+------
+------
 
 ### Requirments
 - Xcode 9+
 - Swift 4
 - iOS 8+
+-----
 
 ### How to use
 drag `GDTextSlot.swift` to your project and use!
+
+-----
 
 ### Sample
 - Create it with code
@@ -46,5 +52,4 @@ func onTextEntered(_ slotView: GDTextSlot, _ finalText: String) {
     print(finalText)
 }
 ```
-
 do not forget to set `GDTextSlotDelegate` to view controller.

@@ -17,6 +17,7 @@ class GDTextSlot: UIView, UIKeyInput {
     public weak var delegate: GDTextSlotDelegate? = nil
     
     /// Nothing special! our beloved variables :D
+    private var lock: Bool = false
     private var currentSlot: Int = 1
     public var keyboard: UIKeyboardType = .numberPad
     
@@ -57,10 +58,30 @@ class GDTextSlot: UIView, UIKeyInput {
         if currentSlot > numberOfSlots{
             return
         }
+        if lock{
+            return
+        }
         guard let slot = viewWithTag(currentSlot) as? UILabel else{
             return
         }
-        slot.text = text
+        lock = true
+        UIView.animate(withDuration: 0.1, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseInOut, animations: {
+            slot.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+            slot.alpha = 0
+        }) { (_) in
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseInOut, animations: {
+                slot.alpha = 1
+                slot.transform = .identity
+                slot.text = text
+                
+            }) { (_) in
+                self.lock = false
+                self.updateTextStatus()
+            }
+        }
+    }
+    
+    private func updateTextStatus(){
         currentSlot += 1
         
         if currentSlot == numberOfSlots + 1{
@@ -84,7 +105,17 @@ class GDTextSlot: UIView, UIKeyInput {
         guard let slot = viewWithTag(currentSlot) as? UILabel else{
             return
         }
-        slot.text = "_"
+        UIView.animate(withDuration: 0.2, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseInOut, animations: {
+            slot.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+            slot.alpha = 0
+        }) { (_) in
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseInOut, animations: {
+                slot.alpha = 1
+                slot.transform = .identity
+                slot.text = "_"
+                
+            }, completion: nil)
+        }
     }
     
     public override init(frame: CGRect) {
@@ -117,7 +148,7 @@ class GDTextSlot: UIView, UIKeyInput {
         
         return lbl
     }
-
+    
     /// Clear the view when changing values
     private func clearView(){
         for v in subviews{
@@ -144,3 +175,4 @@ class GDTextSlot: UIView, UIKeyInput {
         }
     }
 }
+
