@@ -9,12 +9,11 @@ Simple component for code input texts with easy setup and inspector support.
 - iOS 8+
 
 ### How to use
-drag `GDTextSlot` to your project and use!
+drag `GDTextSlot.swift` to your project and use!
 
 ### Sample
 - Create it with code
-```
-swift
+```swift
 let frame = CGRect(x: 0, y: 0, width: 300, height: 60)
 let slotView = GDTextSlot(frame: frame)
 slotView.delegate = self
@@ -41,8 +40,7 @@ and run!
 
 For getting entered text add delegate method
 
-```
-swift
+```swift
 
 func onTextEntered(_ slotView: GDTextSlot, _ finalText: String) {
     print(finalText)
