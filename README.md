@@ -15,6 +15,20 @@ Simple component for code input texts with easy setup and inspector support.
 ### How to use
 drag `GDTextSlot.swift` to your project and use!
 
+Or using Cocoapods
+```
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '9.0'
+use_frameworks!
+
+target '<Your Target Name>' do
+pod 'GDTextSlot'
+end
+```
+`pod update` then `pod install`
+
+
+
 -----
 
 ### Sample
