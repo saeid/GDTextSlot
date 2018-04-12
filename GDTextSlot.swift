@@ -52,13 +52,18 @@ final public class GDTextSlot: UIView, UIKeyInput {
         set {}
     }
     
-    /// If slots are filled; return
+    /// If slots are field return
     /// Adds digits to slots or if we are done, retrun the code
     public func insertText(_ text: String) {
-        if currentSlot > numberOfSlots{ return }
-        if lock{ return }
-        guard let slot = viewWithTag(currentSlot) as? UILabel else{ return }
-        
+        if currentSlot > numberOfSlots{
+            return
+        }
+        if lock{
+            return
+        }
+        guard let slot = viewWithTag(currentSlot) as? UILabel else{
+            return
+        }
         lock = true
         UIView.animate(withDuration: 0.1, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseInOut, animations: {
             slot.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
@@ -76,7 +81,7 @@ final public class GDTextSlot: UIView, UIKeyInput {
         }
     }
     
-    public func updateTextStatus(){
+    private func updateTextStatus(){
         currentSlot += 1
         
         if currentSlot == numberOfSlots + 1{
@@ -91,7 +96,7 @@ final public class GDTextSlot: UIView, UIKeyInput {
         }
     }
     
-    open func deleteBackward() {
+    public func deleteBackward() {
         if currentSlot <= 1{
             return
         }
@@ -117,7 +122,7 @@ final public class GDTextSlot: UIView, UIKeyInput {
         super.init(frame: frame)
     }
     
-    public required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
