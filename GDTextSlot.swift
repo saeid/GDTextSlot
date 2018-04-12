@@ -1,14 +1,14 @@
 //
 //  GDTextSlot.swift
-//  DeepLink
+//
 //
 //  Created by Saeid Basirnia on 2/21/18.
-//  Copyright © 2018 SigmaTelecom. All rights reserved.
+//  Copyright © 2018 Saeid Basirnia. All rights reserved.
 //
 
 import UIKit
 
-protocol GDTextSlotDelegate: class{
+public protocol GDTextSlotDelegate: class{
     func onTextEntered(_ slotView: GDTextSlot, _ finalText: String)
 }
 
@@ -52,18 +52,13 @@ class GDTextSlot: UIView, UIKeyInput {
         set {}
     }
     
-    /// If slots are field return
+    /// If slots are filled; return
     /// Adds digits to slots or if we are done, retrun the code
     func insertText(_ text: String) {
-        if currentSlot > numberOfSlots{
-            return
-        }
-        if lock{
-            return
-        }
-        guard let slot = viewWithTag(currentSlot) as? UILabel else{
-            return
-        }
+        if currentSlot > numberOfSlots{ return }
+        if lock{ return }
+        guard let slot = viewWithTag(currentSlot) as? UILabel else{ return }
+        
         lock = true
         UIView.animate(withDuration: 0.1, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseInOut, animations: {
             slot.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
@@ -81,7 +76,7 @@ class GDTextSlot: UIView, UIKeyInput {
         }
     }
     
-    private func updateTextStatus(){
+    func updateTextStatus(){
         currentSlot += 1
         
         if currentSlot == numberOfSlots + 1{
@@ -96,7 +91,7 @@ class GDTextSlot: UIView, UIKeyInput {
         }
     }
     
-    func deleteBackward() {
+    private func deleteBackward() {
         if currentSlot <= 1{
             return
         }
