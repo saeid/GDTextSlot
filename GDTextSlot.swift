@@ -13,7 +13,7 @@ public protocol GDTextSlotDelegate: class{
 }
 
 @IBDesignable
-class GDTextSlot: UIView, UIKeyInput {
+final public class GDTextSlot: UIView, UIKeyInput {
     public weak var delegate: GDTextSlotDelegate? = nil
     
     /// Nothing special! our beloved variables :D
@@ -54,7 +54,7 @@ class GDTextSlot: UIView, UIKeyInput {
     
     /// If slots are filled; return
     /// Adds digits to slots or if we are done, retrun the code
-    func insertText(_ text: String) {
+    public func insertText(_ text: String) {
         if currentSlot > numberOfSlots{ return }
         if lock{ return }
         guard let slot = viewWithTag(currentSlot) as? UILabel else{ return }
@@ -76,7 +76,7 @@ class GDTextSlot: UIView, UIKeyInput {
         }
     }
     
-    func updateTextStatus(){
+    public func updateTextStatus(){
         currentSlot += 1
         
         if currentSlot == numberOfSlots + 1{
@@ -91,7 +91,7 @@ class GDTextSlot: UIView, UIKeyInput {
         }
     }
     
-    func deleteBackward() {
+    public func deleteBackward() {
         if currentSlot <= 1{
             return
         }
@@ -117,7 +117,7 @@ class GDTextSlot: UIView, UIKeyInput {
         super.init(frame: frame)
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -161,7 +161,7 @@ class GDTextSlot: UIView, UIKeyInput {
     
     
     /// Getting touch to activate the view and call becomeFirstResponder()
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let firstTouch = touches.first else{
             return
         }
