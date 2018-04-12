@@ -4,7 +4,7 @@ s.version          = "1.0.1"
 s.summary          = "Simple component for code input!"
 s.homepage         = "https://github.com/saeid/GDTextSlot"
 s.license          = 'MIT'
-s.author           = { "Saeid Basirnia" => "saeid.basirnia@gmail.com" }
+s.author           = { "Saeid Basirnia" => "saeid.basirniaa@gmail.com" }
 s.source           = { :git => "https://github.com/saeid/GDTextSlot.git", :tag => "1.0.1"}
 
 s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }

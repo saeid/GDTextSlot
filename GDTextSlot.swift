@@ -91,7 +91,7 @@ final public class GDTextSlot: UIView, UIKeyInput {
         }
     }
     
-    public func deleteBackward() {
+    open func deleteBackward() {
         if currentSlot <= 1{
             return
         }
