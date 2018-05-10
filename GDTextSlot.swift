@@ -9,7 +9,7 @@
 import UIKit
 
 public protocol GDTextSlotDelegate: class{
-    func onTextEntered(_ slotView: GDTextSlot, _ finalText: String)
+    func onTextEntered(_ finalText: String)
 }
 
 @IBDesignable
@@ -92,7 +92,7 @@ final public class GDTextSlot: UIView, UIKeyInput {
                 }
                 finishedCode += slotVal
             }
-            delegate?.onTextEntered(self, finishedCode)
+            delegate?.onTextEntered(finishedCode)
         }
     }
     
