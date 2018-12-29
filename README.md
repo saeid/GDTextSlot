@@ -1,5 +1,5 @@
 # GDTextSlot
-Simple component for code input texts with easy setup and inspector support.
+Text slot control for code/text input. Easy setup with Storyboard / Code.
 
 ![slotview](https://user-images.githubusercontent.com/9967486/36479624-625fbe3c-171a-11e8-8f9e-4c39ee0f4f8d.gif)
 
@@ -12,10 +12,12 @@ Simple component for code input texts with easy setup and inspector support.
 - iOS 8+
 -----
 
-### How to use
+### Installation
+
+## Manual
 drag `GDTextSlot.swift` to your project and use!
 
-Or using Cocoapods
+## Cocoapods
 ```
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '9.0'
@@ -25,45 +27,47 @@ target '<Your Target Name>' do
 pod 'GDTextSlot'
 end
 ```
-`pod update` then `pod install`
-
-
+    pod update
+    pod installå
 
 -----
 
-### Sample
-- Create it with code
+### Usage
+
+## Code
 ```swift
 let frame = CGRect(x: 0, y: 0, width: 300, height: 60)
 let slotView = GDTextSlot(frame: frame)
 slotView.delegate = self
 view.addSubview(slotView)
+```
 
-// if you want it to be activated at first!. it will be activated on touch.
-//slotView.becomeFirstResponder()
+Set Properties
+```swift
+// Activate slot
+slotView.becomeFirstResponder()
 
-// KeyboardType can be set like this. default is .numberPad
+// Set keyboard type
 slotView.keyboard = .default
 
-// Change number of available slots. default is 4
+// Set number of slots. default is 4
 slotView.numberOfSlots = 6
 
-// Change space between slots. default is 30
+// Set space between slots. default is 30
 slotView.baseWidth = 40
 ```
 
-- Storyboard
-1) Add view to storyboard and set custom class to `GDTextSlot`
-2) Change attributes through attribute inspector
-
-and run!
-
-For getting entered text add delegate method
+Inherit `GDTextSlotDelegate`
+    class ViewController: UIViewController, GDTextSlotDelegate
 
 ```swift
-
-func onTextEntered(_ slotView: GDTextSlot, _ finalText: String) {
+func onTextEntered(_ slotView: GDTextSlot, _ finalText: String){
     print(finalText)
 }
 ```
-do not forget to set `GDTextSlotDelegate` to view controller.
+
+## Storyboard
+1) Add `UIView` to storyboard, set custom class to `GDTextSlot`
+2) Set attributes with `Attribute Inspector`
+
+Run!
