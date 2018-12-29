@@ -28,7 +28,7 @@ pod 'GDTextSlot'
 end
 ```
     pod update
-    pod installå
+    pod install
 
 -----
 
