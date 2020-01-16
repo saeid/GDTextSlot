@@ -35,6 +35,13 @@ final public class GDTextSlot: UIView, UIKeyInput {
             generateSlots()
         }
     }
+    @IBInspectable
+    public var placeholder: String = "___" {
+        didSet{
+            clearView()
+            generateSlots()
+        }
+    }
     
     // MARK: - Self properties
     public var hasText: Bool{
@@ -112,7 +119,7 @@ final public class GDTextSlot: UIView, UIKeyInput {
             UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseInOut, animations: {
                 slot.alpha = 1
                 slot.transform = .identity
-                slot.text = "_"
+                slot.text = placeholder
                 
             }, completion: nil)
         }
@@ -140,7 +147,7 @@ final public class GDTextSlot: UIView, UIKeyInput {
     private var label: UILabel{
         let lbl: UILabel = UILabel()
         lbl.frame = calcFrame()
-        lbl.text = "_"
+        lbl.text = placeholder
         lbl.textColor = UIColor.black
         lbl.font = UIFont.boldSystemFont(ofSize: 25)
         lbl.textAlignment = .center
