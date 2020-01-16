@@ -8,7 +8,7 @@
 
 import UIKit
 
-public protocol GDTextSlotDelegate: class{
+public protocol GDTextSlotDelegate: class {
     func onTextEntered(_ finalText: String)
 }
 
@@ -16,11 +16,11 @@ public protocol GDTextSlotDelegate: class{
 final public class GDTextSlot: UIView, UIKeyInput {
     public weak var delegate: GDTextSlotDelegate? = nil
     
-    /// Nothing special! our beloved variables :D
     private var lock: Bool = false
     private var currentSlot: Int = 1
-    public var keyboard: UIKeyboardType = .numberPad
     
+    // MARK: - Public variables
+    public var keyboard: UIKeyboardType = .numberPad
     @IBInspectable
     public var numberOfSlots: Int = 4 {
         didSet{
@@ -43,12 +43,12 @@ final public class GDTextSlot: UIView, UIKeyInput {
         }
     }
     
-    // MARK: - Self properties
+    // MARK: - Properties
     public var hasText: Bool{
         return currentSlot > 1
     }
     
-    public override var canBecomeFirstResponder : Bool{
+    public override var canBecomeFirstResponder : Bool {
         return true
     }
     
@@ -59,8 +59,15 @@ final public class GDTextSlot: UIView, UIKeyInput {
         set {}
     }
     
-    /// If slots are field return
-    /// Adds digits to slots or if we are done, retrun the code
+    // MARK: - Init
+     public override init(frame: CGRect) {
+         super.init(frame: frame)
+     }
+     
+     required public init?(coder aDecoder: NSCoder) {
+         super.init(coder: aDecoder)
+     }
+     
     public func insertText(_ text: String) {
         if currentSlot > numberOfSlots{
             return
@@ -68,7 +75,7 @@ final public class GDTextSlot: UIView, UIKeyInput {
         if lock{
             return
         }
-        guard let slot = viewWithTag(currentSlot) as? UILabel else{
+        guard let slot = viewWithTag(currentSlot) as? UILabel else {
             return
         }
         lock = true
@@ -88,28 +95,13 @@ final public class GDTextSlot: UIView, UIKeyInput {
         }
     }
     
-    private func updateTextStatus(){
-        currentSlot += 1
-        
-        if currentSlot == numberOfSlots + 1{
-            var finishedCode: String = ""
-            for s in 1...numberOfSlots{
-                guard let slotVal = (viewWithTag(s) as? UILabel)?.text else{
-                    continue
-                }
-                finishedCode += slotVal
-            }
-            delegate?.onTextEntered(finishedCode)
-        }
-    }
-    
     public func deleteBackward() {
-        if currentSlot <= 1{
+        if currentSlot <= 1 {
             return
         }
         currentSlot -= 1
         
-        guard let slot = viewWithTag(currentSlot) as? UILabel else{
+        guard let slot = viewWithTag(currentSlot) as? UILabel else {
             return
         }
         UIView.animate(withDuration: 0.2, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseInOut, animations: {
@@ -119,34 +111,47 @@ final public class GDTextSlot: UIView, UIKeyInput {
             UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseInOut, animations: {
                 slot.alpha = 1
                 slot.transform = .identity
-                slot.text = placeholder
+                slot.text = self.placeholder
                 
             }, completion: nil)
         }
     }
     
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
+    public func generateSlots() {
+        for index in 1...numberOfSlots {
+            currentSlot = index
+            addSubview(label)
+        }
+        currentSlot = 1
     }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+
+    private func updateTextStatus() {
+        currentSlot += 1
+        
+        if currentSlot == numberOfSlots + 1 {
+            var code: String = ""
+            for s in 1...numberOfSlots {
+                guard let slotValue = (viewWithTag(s) as? UILabel)?.text else {
+                    continue
+                }
+                code += slotValue
+            }
+            delegate?.onTextEntered(code)
+        }
     }
-    
-    /// Calculate X position of slot and make sure
-    /// the whole group is always in center of the view
-    private func calcX() -> CGFloat{
+
+    /// Calculate X position of slot
+    private var xPosition: CGFloat {
         return ((frame.width - (baseWidth * CGFloat(numberOfSlots))) / 2) + (CGFloat((currentSlot - 1)) * CGFloat(baseWidth))
     }
     
-    private func calcFrame() -> CGRect{
-        return CGRect(x: calcX(), y: 0, width: baseWidth, height: frame.height)
+    private var frameRect: CGRect {
+        return CGRect(x: xPosition, y: 0, width: baseWidth, height: frame.height)
     }
     
-    /// Initiate a new label for the slot!
-    private var label: UILabel{
+    private var label: UILabel {
         let lbl: UILabel = UILabel()
-        lbl.frame = calcFrame()
+        lbl.frame = frameRect
         lbl.text = placeholder
         lbl.textColor = UIColor.black
         lbl.font = UIFont.boldSystemFont(ofSize: 25)
@@ -156,28 +161,18 @@ final public class GDTextSlot: UIView, UIKeyInput {
         return lbl
     }
     
-    /// Clear the view when changing values
-    private func clearView(){
+    private func clearView() {
         for v in subviews{
             v.removeFromSuperview()
         }
     }
-    
-    public func generateSlots(){
-        for index in 1...numberOfSlots{
-            currentSlot = index
-            addSubview(label)
-        }
-        currentSlot = 1
-    }
-    
     
     /// Getting touch to activate the view and call becomeFirstResponder()
     override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let firstTouch = touches.first else{
             return
         }
-        if firstTouch.view == self{
+        if firstTouch.view == self {
             self.becomeFirstResponder()
         }
     }
