@@ -8,8 +8,8 @@ Text slot control for code/text input. Easy setup with Storyboard / Code.
 
 ### Requirments
 - Xcode 9+
-- Swift 4
-- iOS 8+
+- Swift 5
+- iOS 9+
 -----
 
 ### Installation
@@ -55,6 +55,9 @@ slotView.numberOfSlots = 6
 
 // Set space between slots. default is 30
 slotView.baseWidth = 40
+
+// Set text slot placeholder. Default is ___
+slotView.placeholder = *
 ```
 
 Inherit `GDTextSlotDelegate`
