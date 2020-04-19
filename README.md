@@ -1,5 +1,5 @@
 # GDTextSlot
-Text slot control for code/text input. Easy setup with Storyboard / Code.
+A customizable control for code/text input. Easy setup with Storyboard and attributes inspector or Code.
 
 ![slotview](https://user-images.githubusercontent.com/9967486/36479624-625fbe3c-171a-11e8-8f9e-4c39ee0f4f8d.gif)
 
@@ -12,10 +12,9 @@ Text slot control for code/text input. Easy setup with Storyboard / Code.
 - iOS 9+
 -----
 
-### Installation
-
+# Installation
 ## Manual
-drag `GDTextSlot.swift` to your project and use!
+drag `GDTextSlot.swift` to your project!
 
 ## Cocoapods
 ```
@@ -24,15 +23,13 @@ platform :ios, '9.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-pod 'GDTextSlot'
+    pod 'GDTextSlot'
 end
 ```
-    pod update
     pod install
 
------
 
-### Usage
+# Usage
 
 ## Code
 ```swift
@@ -44,24 +41,27 @@ view.addSubview(slotView)
 
 Set Properties
 ```swift
-// Activate slot
+// Automatically activate text slot and show keyboard
+// Or it will be activated when it's tapped
 slotView.becomeFirstResponder()
 
-// Set keyboard type
+// Set keyboard type -- Default is .numberPad
 slotView.keyboard = .default
 
-// Set number of slots. default is 4
+// Set number of slots -- Default is 4
 slotView.numberOfSlots = 6
 
-// Set space between slots. default is 30
+// Set space between slots -- Default is 50
 slotView.baseWidth = 40
 
 // Set text slot placeholder. Default is ___
 slotView.placeholder = *
+
+// Set custom font for the text
+slotView.textFont = UIFont
 ```
 
-Inherit `GDTextSlotDelegate`
-    class ViewController: UIViewController, GDTextSlotDelegate
+Conform to `GDTextSlotDelegate`
 
 ```swift
 func onTextEntered(_ slotView: GDTextSlot, _ finalText: String){
@@ -70,7 +70,7 @@ func onTextEntered(_ slotView: GDTextSlot, _ finalText: String){
 ```
 
 ## Storyboard
-1) Add `UIView` to storyboard, set custom class to `GDTextSlot`
-2) Set attributes with `Attribute Inspector`
+1) Add a `UIView` and set its custom class to `GDTextSlot`
+2) Set attributes with `Attributes inspector`
 
 Run!
